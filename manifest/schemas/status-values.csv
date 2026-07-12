@@ -1,0 +1,9 @@
+status,computed,reportable,meaning
+source,not_applicable,not_applicable,Immutable source input
+derived,true,true,Generated artifact allowed in paper-facing output
+verified,true,true,Derived artifact that passed its declared checks
+computed_but_withheld,true,false,Quantity exists but a scientific gate forbids paper-facing promotion
+not_computed,false,false,Expected computation has not run
+not_applicable,not_applicable,false,Artifact or method does not apply to this target
+failed,false,false,Producer or verification failed and output is quarantined
+

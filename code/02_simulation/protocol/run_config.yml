@@ -1,0 +1,38 @@
+schema_version: pvstackr_paper_simulation_run_v1
+evidence_run: july_2026_both_gradient_parity
+
+design:
+  conditions: 24
+  replications: 4000
+  estimators_per_replication: 4
+  estimator_rows: 16000
+  truth:
+    beta_W: 0.40
+    beta_B: 0.60
+
+seeds:
+  dgm_root: 20260514
+  mcmc_root: 20260601
+  shared_substrate_across_estimators: true
+  per_pv_mcmc: "mcmc_root + plausible-value index"
+  stacked_mcmc: "mcmc_root"
+
+mcmc:
+  chains: 4
+  iterations: 2000
+  warmup: 1000
+  post_warmup_draws_per_chain: 1000
+  parallel_chains_per_worker: 1
+  adapt_delta: 0.95
+  max_treedepth: 12
+  backend: cmdstanr
+  archived_cmdstan_version: 2.38.0
+
+execution:
+  archived_workers: 12
+  archived_wall_time_hours: 63
+  shard_unit: one_condition_replication
+  shard_rows: 4
+  resume_policy: validate_then_skip
+  partial_archive_policy: hard_failure
+  worker_error_policy: nonzero_exit

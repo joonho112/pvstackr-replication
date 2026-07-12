@@ -1,0 +1,20 @@
+target_id,source_authority,input_id,producer,public_output,track,verification_rule,status
+main_table_1,MS-V5-MAIN,workflow_spec,code/04_exhibits/build_main_tables.R,output/tables/table1_workflows.csv,quick,exact rows,reproduced
+main_table_2,MS-V5-MAIN,sim_design,code/04_exhibits/build_main_tables.R,output/tables/table2_simulation_design.csv,quick,exact design assertions,reproduced
+main_table_3,MS-V5-MAIN,sim_by_stratum,code/04_exhibits/build_main_tables.R,output/tables/table3_simulation_headline.csv,quick,numeric anchors,reproduced
+main_table_4,MS-V5-MAIN,pisa_final_abc,code/04_exhibits/build_main_tables.R,output/tables/table4_pisa_main.csv,quick,numeric anchors and df provenance,reproduced_with_disclosed_df_issue
+main_table_5,MS-V5-MAIN,pisa_final_abc,code/04_exhibits/build_main_tables.R,output/tables/table5_pisa_reweighting.csv,quick,numeric anchors and Korea withhold,reproduced
+main_figure_1,MS-V5-MAIN,workflow_spec,code/04_exhibits/build_all.R,output/figures/figure1_workflows.pdf,quick,archived source hash and semantic rows,reproduced
+main_figure_2,MS-V5-MAIN,sim_by_condition,code/04_exhibits/build_paper_figures.R,output/figures/figure2_simulation_coverage.pdf,quick,plot data and visual structure,reproduced
+main_figure_3,MS-V5-MAIN,pisa_final_abc,code/04_exhibits/build_paper_figures.R,output/figures/figure3_pisa_forest.pdf,quick,plot data and visual structure,reproduced
+main_figure_4,MS-V5-MAIN,pisa_psis_diagnostics,code/04_exhibits/build_paper_figures.R,output/figures/figure4_pisa_khat.pdf,quick,plot data and gate anchors,reproduced
+osm_theorem_grid,MS-V5-OSM,theorem_grid,tests/test_core.R,verification/core-gate.json,intermediate,max residual tolerance,reproduced
+osm_ccc,MS-V5-OSM,ccc_fixture,tests/test_core.R,verification/core-gate.json,intermediate,moment residual tolerance,reproduced
+osm_psis_table,MS-V5-OSM,pisa_psis_diagnostics,code/04_exhibits/build_osm_tables.R,output/tables/osm_psis_diagnostics.csv,quick,exact row comparison,reproduced
+osm_sim_design,MS-V5-OSM,sim_design,code/04_exhibits/build_osm_tables.R,output/tables/osm_simulation_design.csv,quick,24 rows,reproduced
+osm_sim_l1,MS-V5-OSM,sim_by_condition,code/04_exhibits/build_osm_tables.R,output/tables/osm_simulation_results.csv,quick,72 rows and numeric anchors,reproduced
+osm_pisa_cascade,MS-V5-OSM,pisa_canonical,code/04_exhibits/build_osm_tables.R,output/tables/osm_pisa_cascade.csv,quick,exact counts,reproduced
+osm_reversal_table,MS-V5-OSM,pisa_reversal,code/04_exhibits/build_osm_tables.R,output/tables/osm_pisa_reversal.csv,quick,numeric anchors,reproduced
+osm_figure_s3,MS-V5-OSM,pisa_reversal,code/04_exhibits/build_figure_s3.R,output/figures/figure_s3_weighting_sensitivity.pdf,quick,plot-data anchors and visual structure,reproduced
+main_claims,MS-V5-MAIN,multiple,verification/verify_claims.R,verification/reports/main-claims.csv,verify,claim-specific exact or display rule,reproduced_with_one_disclosed_source_issue
+osm_claims,MS-V5-OSM,multiple,verification/verify_claims.R,verification/reports/osm-claims.csv,verify,claim-specific exact or display rule,reproduced_with_disclosed_archive_wording_issues

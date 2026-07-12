@@ -1,0 +1,4 @@
+"public_object","retained","removed"
+"pipeline_a_cached.rds","draws; targets; pooled results; task seeds; sampler diagnostics","timestamps; absolute fit paths; embedded provenance JSON"
+"pipeline_c_cached.rds","raw and calibrated draws; calibration matrices; target; diagnostics","timestamps; fit handles; long likelihood arrays; provenance JSON"
+"pipeline_b_psis_gate.rds","per-PV log ratios and PSIS diagnostics; gate state; paper-facing rows","timestamps; analytic data duplicate; raw unstable country estimates"

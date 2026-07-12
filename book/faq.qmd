@@ -1,0 +1,87 @@
+# Frequently asked questions {#sec-faq}
+
+## Is the calibrated stack an independent validation of the per-PV workflow?
+
+No --- and the package is careful never to claim it is. Pipeline C is
+*calibrated to* the Pipeline A target $(\bar\beta_{\mathrm{MI}},
+T_{\mathrm{MI}})$ through the affine map of @eq-ccc, so their agreement is a
+statement that the calibration did its job, not that two independent methods
+concur. The scientific content is the **computational saving** --- one MCMC fit
+in place of $M$ --- justified by the point identity (@eq-identity) and the
+moment algebra (@eq-ccc-moments), not by the agreement itself.
+
+## Why are the Korea Pipeline B estimates blank?
+
+Because the reweighting gate of @eq-gate fails for Korea: all ten plausible
+values have Pareto-$\hat k \ge 0.7$ (@fig-pisa-khat). The diagnostics remain
+fully visible, but the numerical reweighted estimates are returned as missing
+with `status = "computed_but_withheld"`. Blank cells are the *intended* output;
+the test suite makes any accidental promotion a hard failure. The United States,
+whose ten $\hat k$ all fall below $0.7$, is reported normally.
+
+## Which degrees of freedom reproduce Table 4?
+
+Classic-Rubin degrees of freedom. The archived Pipeline A objects record
+`df_method = "classic"`, so their endpoints are classic-Rubin results even
+though the manuscript text describes them as Barnard--Rubin intervals. The
+Barnard--Rubin option exists in `code/01_core/rubin_pool.R` but is not
+substituted after the fact; because the degrees of freedom are large, the two
+conventions coincide to the two decimals Table 4 prints (@sec-perpv, @sec-repro).
+
+## Why is the frequentist leg called "REML" when it is fit by ML?
+
+The manuscript and its exhibits label the per-PV frequentist comparator
+*per-PV REML*, but the archived producer fits it with maximum likelihood
+(`REML = FALSE`). This package ships the archived ML numbers and records the
+naming difference rather than relabeling the evidence or refitting it. At these
+sample sizes the fixed-effect comparison is unaffected; the point is disclosure,
+not correction (@sec-sim-legs).
+
+## Why do I see both 23.20 and 23.58?
+
+They are different calculations that happen to be numerically close. The value
+$23.20$ is the model-based Pipeline A/C difference between the Korean and U.S.
+between-school slopes ($92.94 - 69.74$). The value $23.58$ comes from a legacy,
+design-based level-1 contrast that uses only the final weight. They travel
+through different covariance and target routes, so they should not be treated as
+the same estimator; the weighting-sensitivity contrast that surfaces them is a
+secondary robustness result (@sec-pisa-reversal).
+
+## Is the "Korea variance share is twice the U.S." sentence checked?
+
+No, and that is deliberate. No archived producer supports the statement, and the
+most direct intraclass-correlation calculation does not reproduce the "roughly
+twice" wording, so the claim is registered as an `unverified` manuscript
+statement rather than reverse-engineered into a supporting number (@sec-repro).
+
+## Do I need to rerun the 4,000 simulations or refit PISA?
+
+No. The `quick` track rebuilds every table and figure from the audited combined
+evidence in minutes, with CRAN packages only. Use `simulation --mode smoke` to
+exercise the computational path, and reserve the full `simulation` or `pisa`
+paths (which need CmdStan, and, for PISA, authorized local data) for when a
+complete new estimation run is genuinely your goal (@sec-setup).
+
+## Can I run anything useful without the PISA microdata?
+
+Yes --- most of the package. The `quick`, `intermediate`, `verify`, and
+`pisa --mode cached` tracks use only released, sanitized evidence and never read
+a unit record. Only `pisa --mode full --execute` needs authorized local OECD
+data (@sec-pisa-data).
+
+## Why might a regenerated figure PDF have a different hash?
+
+Font embedding and PDF metadata vary across systems, so an identical figure can
+produce different bytes. Scientific parity is therefore checked from plot data,
+table values, normalized text, and explicit numeric anchors --- never from PDF
+bytes --- and the visual-QA report separates benign rendering differences from
+content changes (@sec-repro).
+
+## Where is the deeper analysis?
+
+This guide shows you *how* to reproduce the results. The scientific argument ---
+*what* the study found and *why* each modeling choice was made --- is the
+manuscript [@lee2026onemcmc]. The general-purpose implementation of the workflow
+is the companion R package
+[**pvstackr**](https://github.com/joonho112/pvstackr); this repository ships the
+frozen engine that produced the paper's specific results (@sec-software-boundary).

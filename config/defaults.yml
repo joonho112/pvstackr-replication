@@ -1,0 +1,37 @@
+schema_version: pvstackr-replication-config-v1
+
+paths:
+  data: data
+  precomputed: data/precomputed
+  figures: output/figures
+  tables: output/tables
+  results: output/results
+  expected: verification/expected
+
+execution:
+  seed_root: 20260514
+  cores: 1
+  overwrite: false
+  fail_on_missing: true
+
+tracks:
+  quick:
+    entrypoint: code/04_exhibits/run_quick.R
+    default_mode: shipped
+  intermediate:
+    entrypoint: code/04_exhibits/run_intermediate.R
+    default_mode: cached
+  simulation:
+    entrypoint: code/02_simulation/run_simulation.R
+    default_mode: smoke
+  pisa:
+    entrypoint: code/03_pisa/run_pisa.R
+    default_mode: cached
+  verify:
+    entrypoint: verification/run_verification.R
+    default_mode: quick
+
+tolerances:
+  deterministic_numeric: 1.0e-12
+  stochastic_summary_absolute: 1.0e-6
+

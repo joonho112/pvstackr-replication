@@ -1,0 +1,26 @@
+{
+  "schema_version": "pvstackr-phase-gate-v1",
+  "phase": 8,
+  "status": "accepted_with_declared_external_checks",
+  "local_platform": "aarch64-apple-darwin23",
+  "r_version": "4.6.0",
+  "checks": {
+    "public_verification": "pass",
+    "clean_room_quick_verify_guide": "pass",
+    "manifest_fail_closed_negative_control": "pass",
+    "publication_content_negative_controls": "pass_text_yaml_allowlisted_binary_rds_unreadable_rds_nonproject_authoring_archive",
+    "simulation_signature_and_content_negative_control": "pass",
+    "simulation_full_preflight_4000_tasks": "pass",
+    "pisa_full_preflight_22_tasks": "pass",
+    "guide_8_pages_13_local_links": "pass",
+    "publication_scan": "pass",
+    "novice_review": "pass_after_remediation",
+    "expert_review": "pass_after_remediation",
+    "x86_64_linux_execution": "pending_repository_publication",
+    "full_simulation_execution": "not_repeated_during_packaging",
+    "full_pisa_execution": "not_repeated_during_packaging"
+  },
+  "unresolved_high_severity_local_findings": 0,
+  "publication_actions_performed": false,
+  "manuscript_modified": false
+}

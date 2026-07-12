@@ -1,0 +1,14 @@
+field,required,type,description
+logical_id,yes,character,Stable public logical identifier
+path,yes,character,Repository-relative path using forward slashes
+artifact_type,yes,character,code data table figure document manifest or test
+schema_version,yes,character,Versioned schema identifier
+producer,yes,character,Repository-relative script or manual-curation record
+source_ids,yes,character,Semicolon-separated upstream logical IDs
+sha256,yes,character,Lowercase 64-character SHA-256 of the public file
+size_bytes,yes,integer,Public file size in bytes
+rows,conditional,integer,Row count for rectangular data
+columns,conditional,integer,Column count for rectangular data
+status,yes,character,Allowed value from status-values.csv
+notes,no,character,Short public provenance or interpretation note
+

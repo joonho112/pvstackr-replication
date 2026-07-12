@@ -1,0 +1,9 @@
+capability,paper_engine,pvstackr_0_1_0,replication_decision
+random_intercept_formula,supported,rejected,use frozen paper engine
+weighted_gaussian_cmdstan,supported,precomputed adapter only,use frozen paper engine
+per_pv_mcmc_rubin,supported,workflow abstraction available,use archived paper path
+fractional_stack_random_intercept,supported,group terms rejected,use frozen paper engine
+calibration_target,model-based Rubin T_MI,external BRR-Fay target required,use archived paper target
+psis_random_intercept,supported,group terms rejected,use frozen paper engine
+brr_fay_random_intercept,supported,lm only,use frozen paper engine
+public_user_api,archive-oriented,documented package API,treat package as related software

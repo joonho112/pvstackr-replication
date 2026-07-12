@@ -1,0 +1,14 @@
+{
+  "phase": 2,
+  "status": "pass",
+  "checks": 35,
+  "checks_passed": 35,
+  "tracks": ["quick", "intermediate", "simulation", "pisa", "verify"],
+  "runner": {
+    "nested_root_discovery": true,
+    "dry_run": true,
+    "unknown_track_nonzero": true,
+    "child_status_propagation": true
+  },
+  "public_path_scan_findings": 0
+}

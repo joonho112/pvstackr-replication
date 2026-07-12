@@ -1,0 +1,177 @@
+# Setup and execution tracks {#sec-setup}
+
+This chapter takes you from a clean machine to a working checkout, explains the
+five reproduction tracks in detail, and describes the toolchain the heavy tracks
+need. If you only want the paper's tables and figures, the `quick` and `verify`
+tracks in the [quick start](index.qmd#quick-start) are all you need; nothing
+here is required reading before running them.
+
+## The self-locating path model
+
+Every script derives its paths from the package root, which it finds by walking
+up from its own location until it sees `pvstackr-replication.Rproj`. There is no
+`setwd()` to edit and no absolute path baked into any file. In practice this
+means:
+
+- You may run a script from the package root, from a subdirectory, or through
+  `run_all.R`, and it will resolve the same inputs and outputs.
+- **Inputs are read-only.** Source code lives in `code/`, `stan/`, and
+  `tests/`; shipped evidence lives in `data/precomputed/`; expected values live
+  in `verification/expected/`. Nothing in a normal run writes to these.
+- **Outputs are disposable.** Rebuilt tables and figures go to `output/`;
+  verification reports go to `verification/reports/`. Both are safe to delete and
+  regenerate.
+
+The helper that implements this, `code/helpers/paths.R`, also refuses absolute
+or parent-escaping configuration paths, so a stray `--config /etc/...` cannot
+redirect a run outside the package.
+
+## Restore the pinned environment
+
+The package pins its dependencies with [renv](https://rstudio.github.io/renv/).
+On R 4.3 or newer, restore them once from the package root:
+
+```sh
+Rscript -e 'if (!requireNamespace("renv", quietly = TRUE)) \
+  install.packages("renv", repos = "https://cloud.r-project.org"); \
+  renv::restore(prompt = FALSE)'
+```
+
+`renv.lock` records the exact package versions the analysis was run under. The
+`quick`, `intermediate`, and `verify` tracks need only CRAN packages; the
+`simulation` and `pisa` full paths additionally need a working CmdStan
+toolchain (below). A diagnostic preflight reports what is present without
+installing anything:
+
+```sh
+Rscript code/00_setup.R --check      # R version, per-track package readiness, toolchain
+Rscript run_all.R --help             # the full command-line interface
+```
+
+::: {.callout-note}
+The frozen CI environment uses R 4.6.0, but the enforced minimum is R 4.3.0
+(`code/00_setup.R`). A newer patch release changes nothing in the reported
+numbers; it can change only PDF byte-metadata, which the verifier deliberately
+does not treat as scientific content (see @sec-repro and @sec-faq).
+:::
+
+## The five tracks in detail {#sec-tracks-detail}
+
+`run_all.R` dispatches to one of five track entrypoints declared in
+`config/defaults.yml`. The mapping is read live below:
+
+```{r}
+#| label: tbl-track-map
+#| echo: false
+#| tbl-cap: "Track entrypoints and default modes, read live from `config/defaults.yml`."
+root <- getwd()
+while (!file.exists(file.path(root, "pvstackr-replication.Rproj")) && dirname(root) != root) root <- dirname(root)
+cfg_path <- file.path(root, "config", "defaults.yml")
+if (requireNamespace("yaml", quietly = TRUE) && file.exists(cfg_path)) {
+  cfg <- yaml::read_yaml(cfg_path)
+  tr  <- cfg$tracks
+  tab <- data.frame(
+    Track        = names(tr),
+    Entrypoint   = vapply(tr, function(x) x$entrypoint,   character(1)),
+    `Default mode` = vapply(tr, function(x) x$default_mode, character(1)),
+    check.names  = FALSE, row.names = NULL
+  )
+  knitr::kable(tab, row.names = FALSE)
+} else {
+  cat("config/defaults.yml not found; run from the package root.\n")
+}
+```
+
+### `quick` --- rebuild the exhibits (default)
+
+Rebuilds every table and figure in the paper and supplement from the committed
+`data/precomputed/` layer. No Stan, no PISA microdata, minutes on a laptop.
+
+```sh
+Rscript run_all.R --track quick
+```
+
+### `intermediate` --- recompute the transformations
+
+Recomputes the Rubin pooling, the CCC calibration targets, the aggregation, and
+the reporting gates from the shipped draw and target objects, so you can inspect
+the statistical machinery of @sec-methods without refitting anything.
+
+```sh
+Rscript run_all.R --track intermediate
+```
+
+### `simulation` --- the synthetic parity study
+
+`--mode smoke` validates the archive, the seed contract, and the adversarial
+controls without starting Stan; adding `--execute` runs one live reduced
+replication. `--mode full` writes the persistent 4,000-task manifest and, with
+`--execute`, runs (or resumes) the complete study --- parallel hardware only.
+
+```sh
+Rscript run_all.R --track simulation --dry-run -- --mode smoke   # print the resolved command
+Rscript run_all.R --track simulation -- --mode smoke             # validate the archive path
+Rscript run_all.R --track simulation -- --mode smoke --execute   # one live reduced replay
+Rscript run_all.R --track simulation -- --mode full              # 4,000-task preflight
+```
+
+### `pisa` --- the empirical analysis
+
+`--mode cached` rebuilds the empirical evidence from sanitized draw and target
+objects (no microdata). `--mode full` refits the 22 MCMC models and requires
+*authorized local OECD data* (see @sec-pisa-data).
+
+```sh
+Rscript run_all.R --track pisa -- --mode cached
+Rscript run_all.R --track pisa -- --mode full            # 22-task preflight
+Rscript run_all.R --track pisa -- --mode full --execute  # refit A and C; re-audit B
+```
+
+### `verify` --- audit the package
+
+Checks the manifest, schemas, numeric anchors, reporting gates, and publication
+hygiene. This is the track a reviewer runs; @sec-repro describes each component.
+
+```sh
+Rscript run_all.R --track verify
+```
+
+::: {.callout-tip}
+Always dry-run a heavy path first (`--dry-run`), and remember that a heavy task
+is *complete only when its expected-key manifest is complete*. Partial or
+interrupted output is never promoted into a manuscript aggregate --- the
+aggregator checks the full task grid before it accepts anything (@sec-simulation).
+:::
+
+## The heavy-track toolchain
+
+`simulation --mode full` and `pisa --mode full` fit models with
+[CmdStan](https://mc-stan.org/) through `cmdstanr` and `brms`. Before an
+`--execute` run the setup preflight checks for a resolvable CmdStan
+installation, a C++ compiler (`c++`), `make`, and --- importantly --- a
+**space-free temporary directory**. CmdStan's build step fails on paths that
+contain spaces, so if your `TMPDIR` contains a space, set a clean one first:
+
+```sh
+export TMPDIR="$HOME/.pvstackr_tmp"   # any space-free path
+mkdir -p "$TMPDIR"
+```
+
+The other tracks never touch this toolchain.
+
+## The software boundary {#sec-software-boundary}
+
+This repository ships a **frozen, portable copy** of the exact analysis engine
+that produced the paper's random-intercept results, under `code/01_core/` and
+`stan/`. The separately maintained
+[**pvstackr**](https://github.com/joonho112/pvstackr) package (version 0.1.0) is
+conceptually related software and documents the general workflow, but its
+current public API does *not* implement this exact weighted random-intercept
+execution path, and it is **not a dependency** of this package. Keeping the two
+apart prevents two misleading claims: that pvstackr 0.1.0 generated the archived
+results, or that they can be reproduced by substituting its current API. The
+mapping between the two is recorded in `docs/software-lineage.md` and
+`verification/pvstackr-compatibility.csv`.
+
+For installation troubleshooting and failure recovery, see
+`docs/getting-started.md` and `docs/troubleshooting.md`.

@@ -1,0 +1,32 @@
+claim_id,evidence_file,column,subset,expected,comparison,tolerance,display_rule,status
+sim_conditions,data/precomputed/simulation/design.csv,,nrow,24,exact,0,integer,verified
+sim_replications,data/precomputed/simulation/parity_per_rep.csv,,unique replication keys,4000,exact,0,integer,verified
+sim_fit_rows,data/precomputed/simulation/parity_per_rep.csv,,nrow,16000,exact,0,integer,verified
+sim_max_abs_bias,data/precomputed/simulation/parity_by_stratum.csv,biasW|biasB,non-oracle,0.0051147367,absolute maximum,1e-9,less than .006,verified
+sim_max_rhat,data/precomputed/simulation/diagnostics.csv,bayes_a_rhat_max|cdirect_rhat_max,all,1.02023844442964,absolute maximum,1e-12,round to 1.020,verified
+sim_divergences,data/precomputed/simulation/diagnostics.csv,bayes_a_div|cdirect_div,all,0,sum,0,integer,verified
+mcmc_freq_archive_max_betaW,data/precomputed/simulation/parity_per_rep.csv,bW,bayes_a versus archived freq_per_pv paired by condition and replication,0.00068189148263597676,maximum absolute difference,1e-15,display .0007,verified
+mcmc_freq_archive_max_betaB,data/precomputed/simulation/parity_per_rep.csv,bB,bayes_a versus archived freq_per_pv paired by condition and replication,0.010638678385633982,maximum absolute difference,1e-15,display .011,verified
+pisa_rows,data/precomputed/pisa/sample_cascade.csv,released_students,sum over countries,11006,exact,0,integer,verified
+pisa_columns,data/pisa/slice-contract.csv,columns,contract_version=pisa2022-reading-slice-v1,99,exact,0,integer,declared_external_data_contract
+pisa_usa_released,data/precomputed/pisa/sample_cascade.csv,released_students,country=USA,4552,exact,0,integer,verified
+pisa_kor_released,data/precomputed/pisa/sample_cascade.csv,released_students,country=KOR,6454,exact,0,integer,verified
+pisa_usa_analytic,data/precomputed/pisa/sample_cascade.csv,analytic_students,country=USA,4342,exact,0,integer,verified
+pisa_kor_analytic,data/precomputed/pisa/sample_cascade.csv,analytic_students,country=KOR,6391,exact,0,integer,verified
+pisa_usa_khat_min,data/precomputed/pisa/psis_diagnostics.csv,pareto_khat,country=USA,0.347337,minimum,1e-5,display .35,verified
+pisa_usa_khat_max,data/precomputed/pisa/psis_diagnostics.csv,pareto_khat,country=USA,0.673768,maximum,1e-5,display .67,verified
+pisa_kor_khat_min,data/precomputed/pisa/psis_diagnostics.csv,pareto_khat,country=KOR,0.818868,minimum,1e-5,display .82,verified
+pisa_kor_khat_max,data/precomputed/pisa/psis_diagnostics.csv,pareto_khat,country=KOR,1.340665,maximum,1e-5,display 1.34,verified
+pisa_a_rhat_max,data/precomputed/pisa/abc_estimates.csv,rhat_max,pipeline=A,1.0160203143172,maximum,1e-12,display 1.016,verified
+pisa_a_ess_bulk_min,data/precomputed/pisa/abc_estimates.csv,ess_bulk_min,pipeline=A,197.81480536601501,minimum,1e-9,display 198,verified
+pisa_a_divergences,data/precomputed/pisa/abc_estimates.csv,divergences_total,pipeline=A,0,maximum,0,integer,verified
+pisa_usa_c_rhat_max,data/precomputed/pisa/abc_estimates.csv,rhat_max,country=USA;pipeline=C,1.0058331496483399,maximum,1e-12,display 1.006,verified
+pisa_usa_c_ess_bulk_min,data/precomputed/pisa/abc_estimates.csv,ess_bulk_min,country=USA;pipeline=C,242.89416970181799,minimum,1e-9,display 243,verified
+pisa_kor_c_rhat_max,data/precomputed/pisa/abc_estimates.csv,rhat_max,country=KOR;pipeline=C,1.0084321457090999,maximum,1e-12,display 1.008,verified
+pisa_kor_c_ess_bulk_min,data/precomputed/pisa/abc_estimates.csv,ess_bulk_min,country=KOR;pipeline=C,403.80584305835703,minimum,1e-9,display 404,verified
+pisa_c_divergences,data/precomputed/pisa/abc_estimates.csv,divergences,pipeline=C,0,maximum,0,integer,verified
+pisa_usa_a_df_within,data/precomputed/pisa/abc_estimates.csv,df,country=USA;pipeline=A;term=b_ESCS_within,349.972573636098,exact,1e-9,display 350,verified
+pisa_usa_a_df_between,data/precomputed/pisa/abc_estimates.csv,df,country=USA;pipeline=A;term=b_ESCS_between,1360.22214097538,exact,1e-8,display 1360,verified
+pisa_kor_a_df_within,data/precomputed/pisa/abc_estimates.csv,df,country=KOR;pipeline=A;term=b_ESCS_within,64.625325489213296,exact,1e-9,display 65,verified
+pisa_kor_a_df_between,data/precomputed/pisa/abc_estimates.csv,df,country=KOR;pipeline=A;term=b_ESCS_between,536.76081686802399,exact,1e-9,display 537,verified
+pisa_variance_share_sentence,unmapped,,,NA,unverified,NA,no display,unverified manuscript statement

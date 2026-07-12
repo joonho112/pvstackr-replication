@@ -1,0 +1,12 @@
+claim_id,evidence_file,expected,comparison,tolerance,status
+theorem_grid_rows,data/precomputed/method/theorem_grid.csv,24,nrow,0,verified
+theorem_grid_residual,data/precomputed/method/theorem_grid.csv,4.44089209850063e-16,maximum,1e-20,verified
+osm_simulation_rows,output/tables/osm_simulation_results.csv,72,nrow,0,verified
+diagnostic_reps,data/precomputed/simulation/diagnostics.csv,48,nrow,0,verified
+diagnostic_fits,data/precomputed/simulation/diagnostics.csv,558,implied fit count,0,verified
+diagnostic_min_ess,data/precomputed/simulation/diagnostics.csv,312.823,minimum,0.01,verified
+june_reproduction,data/precomputed/simulation/betaW_reproduction_check.csv,0.008552569,maximum absolute difference,1e-9,verified
+usa_psis_pass,data/precomputed/pisa/psis_diagnostics.csv,10,count below .7,0,verified
+kor_psis_pass,data/precomputed/pisa/psis_diagnostics.csv,0,count below .7,0,verified
+reversal_level1,data/precomputed/pisa/reversal_secondary_summary.csv,23.5816978992317,estimate,1e-10,verified
+reversal_staged,data/precomputed/pisa/reversal_secondary_summary.csv,10.6588698435488,estimate,1e-10,verified

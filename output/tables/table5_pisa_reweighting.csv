@@ -1,0 +1,3 @@
+"country","effect","estimate","std_error","difference_from_A","se_ratio_to_A"
+"USA","Within-school",25.0270314591913,1.9287685152794,-0.0563499368087008,0.995551008393526
+"USA","Between-school",68.7515252416273,6.8246113555622,-0.988659355672695,1.1285391628769

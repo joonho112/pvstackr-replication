@@ -1,0 +1,3 @@
+"country","computation_completed","n_pv","n_pv_pass","max_pareto_k","threshold","numeric_reporting_allowed","reporting_status"
+"USA",TRUE,10,10,0.673767885537718,0.7,TRUE,"reportable"
+"KOR",TRUE,10,0,1.34066470885122,0.7,FALSE,"computed_but_withheld"

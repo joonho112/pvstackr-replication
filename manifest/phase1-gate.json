@@ -1,0 +1,32 @@
+{
+  "phase": 1,
+  "status": "pass_with_documented_source_discrepancies",
+  "authority": {
+    "claims": "MS-V5-MAIN and MS-V5-OSM",
+    "scientific_engine": "ENGINE-V3",
+    "simulation_evidence": "SIM-JULY-PARITY",
+    "pisa_source": "PISA-USA-KOR-SOURCE",
+    "related_software": "PVSTACKR-0.1.0"
+  },
+  "review": {
+    "independent_audits": 3,
+    "main_displays_registered": 9,
+    "main_numeric_claim_groups_registered": 23,
+    "osm_method_targets_registered": 20,
+    "osm_evidence_targets_registered": 23
+  },
+  "decisions": [
+    "Use an allowlist rebuild rather than copying the development archive.",
+    "Use the frozen ENGINE-V3 implementation for exact paper reproduction.",
+    "Treat pvstackr 0.1.0 as related software, not as the paper runtime.",
+    "Do not redistribute PISA unit records under the current PISA-specific terms; provide direct OECD access and a local import contract.",
+    "Reproduce archived Pipeline A classic-Rubin intervals and disclose the manuscript wording mismatch.",
+    "Register unsupported prose claims as unverified rather than constructing post hoc support."
+  ],
+  "unresolved_publication_stops": [
+    "public-tree privacy and credential scan",
+    "RDS embedded-path sanitization",
+    "complete portable producers and verification rules",
+    "clean-room replay"
+  ]
+}

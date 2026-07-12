@@ -1,0 +1,64 @@
+# Local operating-system and R session files
+.DS_Store
+Thumbs.db
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+*.Rproj.user
+
+# Local package libraries and build products
+renv/library/
+renv/local/
+renv/cellar/
+renv/staging/
+renv/python/
+renv/sandbox/
+*.Rcheck/
+*.tar.gz
+*.Rout
+*.utf8.md
+*.knit.md
+
+# Compiled and temporary Stan products
+.cmdstanr/
+stan/*.o
+stan/*.hpp
+stan/*.d
+stan/*.exe
+stan_output/
+**/stan-cache/
+**/cmdstan-cache/
+
+# Quarto and documentation build products
+.quarto/
+book/_book/
+book/_freeze/
+book/*_files/
+book/*_cache/
+
+# Runtime scratch space. Publication outputs elsewhere under output/ are public.
+tmp/
+output/.tmp/
+output/scratch/
+output/**/.tmp/
+output/pisa_full/
+output/simulation-shards/
+output/simulation-smoke/
+output/results/simulation-full/
+
+# The audit log is intentionally local and never part of the public release.
+log/
+tools/internal/
+data/pisa/local/
+verification/reports/
+
+# Local credentials and machine-specific overrides must never be committed.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials/
+config/local.yml
+config/private.yml

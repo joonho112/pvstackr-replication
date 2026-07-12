@@ -1,0 +1,13 @@
+{
+  "phase": 6,
+  "status": "pass_with_disclosed_manuscript_source_issues",
+  "registered_targets": 19,
+  "unmapped_targets": 0,
+  "artifact_checks": 24,
+  "artifact_checks_passed": 24,
+  "pdf_visual_qa": "pass",
+  "manuscript_change_proposal": "docs/manuscript-change-proposal.md",
+  "manuscript_write_authorized": false,
+  "manuscript_integration": "no_op",
+  "high_risk_unresolved_package_defects": 0
+}

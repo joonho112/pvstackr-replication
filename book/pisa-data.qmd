@@ -1,0 +1,127 @@
+# PISA data and weights {#sec-pisa-data}
+
+The empirical illustration analyzes the effect of socioeconomic status on PISA
+2022 reading for the United States and Korea. This chapter explains how to
+obtain the data under the OECD's terms, how the analytic sample is defined, and
+how the survey weights enter the model --- the last of which is where
+large-scale-assessment data differs most from a textbook regression.
+
+## Obtaining the data (the redistribution boundary) {#sec-pisa-obtain}
+
+::: {.callout-important}
+## Why the microdata are not in this repository
+
+PISA unit-record files are publicly *obtainable* from the OECD, but the current
+PISA-specific access terms prohibit a third party from **redistributing** them.
+This package therefore ships the analysis code, the exact input contract, and
+sanitized aggregate and model-based evidence --- but **not** the student and
+school records. You download them yourself, accept the OECD terms, and run the
+documented importer.
+:::
+
+Obtain the PISA 2022 student and school files from the OECD, then run the
+importer and the builder:
+
+```sh
+Rscript code/03_pisa/00_import_oecd_puf.R \
+  --student PATH/TO/CY08MSP_STU_QQQ.SAS7BDAT \
+  --school  PATH/TO/CY08MSP_SCH_QQQ.SAS7BDAT
+Rscript code/03_pisa/01_build_data.R
+```
+
+The exact OECD archive and member names, raw file sizes, and SHA-256 hashes are
+recorded in `data/pisa/DATA_NOTICE.md` and `data/pisa/source-metadata.csv`; the
+derived-slice dimensions and checksum are recorded separately in
+`data/pisa/source-metadata.csv` alongside the notice. The importer verifies both
+raw inputs and then enforces a frozen **11,006 $\times$ 99** contract on the
+combined U.S.--Korea slice, so a wrong or updated input file fails immediately
+rather than silently changing a result. Any authorized local records live under
+the git-ignored `data/pisa/local/` path and never enter the public repository.
+
+## The analytic sample {#sec-pisa-sample}
+
+From the released slice, a deterministic projection constructs the analysis
+view and applies complete-case filtering on the ESCS covariate. The cascade from
+released to analytic students and schools is read live below:
+
+```{r}
+#| label: tbl-pisa-cascade
+#| echo: false
+#| tbl-cap: "The PISA analytic-sample cascade by country, read live from `data/precomputed/pisa/sample_cascade.csv`."
+root <- getwd()
+while (!file.exists(file.path(root, "pvstackr-replication.Rproj")) && dirname(root) != root) root <- dirname(root)
+c_path <- file.path(root, "data", "precomputed", "pisa", "sample_cascade.csv")
+if (file.exists(c_path)) {
+  cc <- utils::read.csv(c_path, stringsAsFactors = FALSE, check.names = FALSE)
+  knitr::kable(cc, row.names = FALSE)
+} else {
+  cat("sample_cascade.csv not found; run `--track quick` or `--track pisa -- --mode cached`.\n")
+}
+```
+
+Complete-case filtering on ESCS removes 210 U.S. and 63 Korean students. Four
+U.S. schools are left with no analytic students, so the United States retains
+**4,342 students in 150 schools** and Korea retains **6,391 students in 186
+schools**, each with ten reading plausible values and 80 replicate weights.
+
+## The within/between decomposition {#sec-pisa-decomp}
+
+The socioeconomic covariate ESCS is split into a *within-school* deviation and a
+*between-school* mean, so that the model of @eq-model separates two
+substantively different effects. For student $i$ in school $j$,
+$$
+\text{ESCS}^{W}_{ij} = \text{ESCS}_{ij} - \overline{\text{ESCS}}_{j},
+\qquad
+\text{ESCS}^{B}_{j} = \overline{\text{ESCS}}_{j},
+$$
+so the two coordinates of $\beta$ are the within-school slope $\beta^{W}$ (how a
+student above their school's mean scores) and the between-school slope
+$\beta^{B}$ (how a school's mean socioeconomic level relates to its mean
+reading). This is the contextual (Mundlak) parameterization, and it is why the
+figures and tables report a *within* and a *between* ESCS effect for each
+country.
+
+## Survey weights and the pseudo-likelihood {#sec-pisa-weights}
+
+PISA is an informatively sampled survey: schools and students are selected with
+unequal probabilities, so an unweighted model is biased for the finite-population
+target. The analysis corrects for this with a **pseudo-posterior** that raises
+each record's likelihood contribution to the power of its (normalized) survey
+weight [@savitsky2016; @williams2021]:
+$$
+\tilde p(\psi \mid y) \;\propto\;
+p(\psi)\,\prod_{i=1}^{n} p(y_i \mid \psi)^{\,w_i},
+\qquad
+w_i \;=\; \frac{n \, W^{\text{FSTUWT}}_i}{\sum_{k=1}^{n} W^{\text{FSTUWT}}_k},
+$$ {#eq-pseudo}
+where $W^{\text{FSTUWT}}$ is the PISA final student weight and the normalization
+makes the weights sum to the sample size $n$. In the Stan model
+(`code/03_pisa/pisa_random_intercept.stan`) this is the single line
+`target += w[n] * normal_lpdf(...)`, evaluated per record. Reconstructing the
+weight also recovers the declared two-stage components (school and
+within-school), and guards check positivity, common support, proportionality,
+and the 80-column BRR-Fay replicate schema before any fit.
+
+::: {.callout-note}
+## A weighting rule Pipeline B must obey
+
+The reweighted stack's importance-ratio numerator (@eq-isratio) is **forbidden**
+from substituting the final or replicate weights for the declared staged
+weights. This keeps the PSIS proposal and target on the same weighting basis, so
+the diagnostic $\hat k$ measures a genuine proposal--target mismatch rather than
+an artifact of inconsistent weighting. The rule is enforced in code and checked
+in `code/03_pisa/verify_data_weights.R`.
+:::
+
+The design-based variance route of @sec-target uses the 80 BRR-Fay replicate
+weights with Fay factor $k=0.5$; the replicate machinery is exactly the OECD's
+recommended variance estimator for PISA [@oecd2024pisatech].
+
+## What runs without the microdata {#sec-pisa-cached-boundary}
+
+The `quick` track and the `pisa --mode cached` track use only the released,
+sanitized aggregate and model-based evidence in `data/precomputed/pisa/`; they
+never read a unit record and never start Stan. Unit-record validation and full
+refitting activate only when you have placed authorized local data under
+`data/pisa/local/`. @sec-pisa-workflows walks through the results those tracks
+produce.

@@ -1,0 +1,29 @@
+schema_version: pisa_estimand_contract_v1
+support_id: EST-01
+population: PISA 2022 reading students in the included USA and Korea public-use slice
+countries: [USA, KOR]
+outcomes: [PV1READ, PV2READ, PV3READ, PV4READ, PV5READ, PV6READ, PV7READ, PV8READ, PV9READ, PV10READ]
+model: "READ_PV ~ ESCS_within + ESCS_between + (1 | school_id_model)"
+co_primary_terms: [b_ESCS_within, b_ESCS_between]
+primary_comparison: within-versus-between ESCS association within each country
+not_primary: [USA-minus-Korea country gap, reversal contrast]
+weights:
+  pipeline_a: normalized final student weight
+  pipeline_c_proposal: normalized final student weight divided by 10 in long data
+  pipeline_b_numerator: staged school and conditional student weights
+  replicate_weights: external BRR-Fay design target only; forbidden in the Pipeline B numerator
+pipelines:
+  A: orthodox per-plausible-value reference
+  C: one-MCMC calibrated primary method
+  B: PSIS-reweighted diagnostic; numeric output requires every plausible value to pass
+psis_gate:
+  pareto_k_threshold: 0.7
+  require_all_pv: true
+  blocked_status: computed_but_withheld
+seeds:
+  A: archived 20-task schedule in data/precomputed/pisa/pipeline_a_cached.rds
+  C: {USA: 2050501876, KOR: 824317146}
+reporting:
+  allow_country_gap_promotion: false
+  allow_korea_pipeline_b_numeric_output: false
+  describe_a_c_equality_as_independent_validation: false

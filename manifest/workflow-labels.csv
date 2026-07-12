@@ -1,0 +1,6 @@
+archive_label,paper_label,paper_workflow,reporting_role,computational_implementation
+bayes_a,Per-PV MCMC,A,primary,per-PV Bayesian fits
+freq_per_pv,Per-PV REML,A,reference,per-PV lmer ML (REML=FALSE; submitted label retained)
+c_direct,Calibrated stack,C,primary,one fractional-posterior stacked fit plus calibration
+pipeline_b,Reweighted stack,B,diagnostic-gated,importance reweighting subject to all-PV PSIS gate
+oracle,Oracle,,simulation benchmark,known generating value

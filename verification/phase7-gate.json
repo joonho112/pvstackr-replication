@@ -1,0 +1,11 @@
+{
+  "phase": 7,
+  "status": "pass",
+  "readme": "complete",
+  "guide_pages": 8,
+  "local_links_checked": 13,
+  "broken_links": 0,
+  "stan_invoked_during_render": false,
+  "desktop_visual_layout": "pass",
+  "source_discrepancies_disclosed": true
+}

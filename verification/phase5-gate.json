@@ -1,0 +1,23 @@
+{
+  "phase": 5,
+  "status": "pass_cached_and_full_preflight",
+  "canonical_data": {
+    "public_included": false,
+    "local_source_verified": true,
+    "exclusion_reason": "PISA-specific terms prohibit third-party redistribution",
+    "rows": 11006,
+    "columns": 99,
+    "sha256": "178795eeba9367ebcfda69af8036e8bcb2e6bab6190b2c657af160e29a76ff44",
+    "plausible_values": 10,
+    "replicate_weights": 80
+  },
+  "analytic_sample": {
+    "USA": {"students": 4342, "schools": 150},
+    "KOR": {"students": 6391, "schools": 186}
+  },
+  "fit_contract": {"per_pv": 20, "stacks": 2, "full_refit_executed_in_this_build": false},
+  "pipeline_a_df_method": "classic",
+  "psis_gate": {"USA": "reportable", "KOR": "computed_but_withheld"},
+  "public_absolute_path_findings": 0,
+  "focused_checks": "pass"
+}

@@ -1,0 +1,3 @@
+role,cycle,oecd_archive,archive_url,extracted_member,size_bytes,sha256,version_rule
+student,CY08MSP,STU_QQQ_SAS.zip,https://webfs.oecd.org/pisa2022/STU_QQQ_SAS.zip,CY08MSP_STU_QQQ.SAS7BDAT,4056940544,04be0433153c8c4195e849023de501575c8a1073b9e4812434d61c69e3b4b160,exact_content_hash
+school,CY08MSP,SCH_QQQ_SAS.zip,https://webfs.oecd.org/pisa2022/SCH_QQQ_SAS.zip,CY08MSP_SCH_QQQ.SAS7BDAT,39829504,ae9e654480b6da5c1b8c20a701c8e0300fafafb8b77ac2d314b4e6a8a6530868,exact_content_hash

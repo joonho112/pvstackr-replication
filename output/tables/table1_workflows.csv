@@ -1,0 +1,7 @@
+"attribute","per_PV_workflow","calibrated_stack","reweighted_stack"
+"Role in this article","Orthodox reference","Proposal","Reliability-gated variant"
+"MCMC fits per model","M","1","1 (reuses the stacked fit)"
+"After the fit","Combining rules across M posteriors","One affine calibration to (beta_bar_MI, T_MI)","M importance reweightings, then combining rules"
+"External input","None","Target assembled from deterministic per-PV refits","None"
+"Convergence audits","M","1","1"
+"Reportable when","Sampler diagnostics pass","Sampler diagnostics pass; target covariances positive definite","Sampler diagnostics pass and Pareto k-hat < 0.7 for all M PVs"

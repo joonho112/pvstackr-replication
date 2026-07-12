@@ -1,0 +1,198 @@
+%% References for the pvstackr replication guide (book/).
+%% The accompanying paper, the software the pipeline depends on, and the
+%% methods, data, and statistical results the chapters walk through.
+
+%% -- Accompanying paper -------------------------------------------------------
+
+@misc{lee2026onemcmc,
+  author       = {Lee, JoonHo and Williams, Matthew R. and Savitsky, Terrance D.},
+  title        = {One {Markov} Chain {Monte} {Carlo} Fit for Many Plausible Values:
+                  A Calibrated Stacked Posterior Workflow for {Bayesian} Multilevel
+                  Models of Large-Scale Assessment Data},
+  year         = {2026},
+  howpublished = {arXiv preprint}
+}
+
+%% -- Software the pipeline depends on -----------------------------------------
+
+@misc{pvstackr,
+  author = {Lee, JoonHo and Williams, Matthew R. and Savitsky, Terrance D.},
+  title  = {{pvstackr}: A Calibrated Stacked Posterior Workflow for
+            Plausible-Value Analysis},
+  year   = {2026},
+  note   = {R package version 0.1.0},
+  url    = {https://github.com/joonho112/pvstackr}
+}
+
+@manual{rcore2026,
+  author       = {{R Core Team}},
+  title        = {R: A Language and Environment for Statistical Computing},
+  organization = {R Foundation for Statistical Computing},
+  address      = {Vienna, Austria},
+  year         = {2026},
+  url          = {https://www.R-project.org/}
+}
+
+@article{stan2017,
+  author  = {Carpenter, Bob and Gelman, Andrew and Hoffman, Matthew D. and
+             Lee, Daniel and Goodrich, Ben and Betancourt, Michael and
+             Brubaker, Marcus A. and Guo, Jiqiang and Li, Peter and
+             Riddell, Allen},
+  title   = {{Stan}: A Probabilistic Programming Language},
+  journal = {Journal of Statistical Software},
+  year    = {2017},
+  volume  = {76},
+  number  = {1},
+  pages   = {1--32},
+  doi     = {10.18637/jss.v076.i01}
+}
+
+@article{brms2017,
+  author  = {B{\"u}rkner, Paul-Christian},
+  title   = {{brms}: An {R} Package for {Bayesian} Multilevel Models Using
+             {Stan}},
+  journal = {Journal of Statistical Software},
+  year    = {2017},
+  volume  = {80},
+  number  = {1},
+  pages   = {1--28},
+  doi     = {10.18637/jss.v080.i01}
+}
+
+@article{lme42015,
+  author  = {Bates, Douglas and M{\"a}chler, Martin and Bolker, Ben and
+             Walker, Steve},
+  title   = {Fitting Linear Mixed-Effects Models Using {lme4}},
+  journal = {Journal of Statistical Software},
+  year    = {2015},
+  volume  = {67},
+  number  = {1},
+  pages   = {1--48},
+  doi     = {10.18637/jss.v067.i01}
+}
+
+@misc{loo2024,
+  author = {Vehtari, Aki and Gabry, Jonah and Magnusson, Mans and Yao, Yuling
+            and B{\"u}rkner, Paul-Christian and Paananen, Topi and
+            Gelman, Andrew},
+  title  = {{loo}: Efficient Leave-One-Out Cross-Validation and {WAIC} for
+            {Bayesian} Models},
+  year   = {2024},
+  note   = {R package version 2.8.0},
+  url    = {https://mc-stan.org/loo/}
+}
+
+%% -- Plausible values and multiple imputation ---------------------------------
+
+@article{mislevy1991,
+  author  = {Mislevy, Robert J.},
+  title   = {Randomization-Based Inference About Latent Variables From Complex
+             Samples},
+  journal = {Psychometrika},
+  year    = {1991},
+  volume  = {56},
+  number  = {2},
+  pages   = {177--196},
+  doi     = {10.1007/BF02294457}
+}
+
+@book{rubin1987,
+  author    = {Rubin, Donald B.},
+  title     = {Multiple Imputation for Nonresponse in Surveys},
+  publisher = {John Wiley \& Sons},
+  address   = {New York},
+  year      = {1987}
+}
+
+@article{barnard1999,
+  author  = {Barnard, John and Rubin, Donald B.},
+  title   = {Small-Sample Degrees of Freedom With Multiple Imputation},
+  journal = {Biometrika},
+  year    = {1999},
+  volume  = {86},
+  number  = {4},
+  pages   = {948--955},
+  doi     = {10.1093/biomet/86.4.948}
+}
+
+@article{wu2005,
+  author  = {Wu, Margaret},
+  title   = {The Role of Plausible Values in Large-Scale Surveys},
+  journal = {Studies in Educational Evaluation},
+  year    = {2005},
+  volume  = {31},
+  number  = {2--3},
+  pages   = {114--128},
+  doi     = {10.1016/j.stueduc.2005.05.005}
+}
+
+%% -- Stacking, importance sampling, and pseudo-posterior inference ------------
+
+@article{yao2018stacking,
+  author  = {Yao, Yuling and Vehtari, Aki and Simpson, Daniel and Gelman,
+             Andrew},
+  title   = {Using Stacking to Average {Bayesian} Predictive Distributions
+             (With Discussion)},
+  journal = {Bayesian Analysis},
+  year    = {2018},
+  volume  = {13},
+  number  = {3},
+  pages   = {917--1007},
+  doi     = {10.1214/17-BA1091}
+}
+
+@article{vehtari2024psis,
+  author  = {Vehtari, Aki and Simpson, Daniel and Gelman, Andrew and Yao,
+             Yuling and Gabry, Jonah},
+  title   = {Pareto Smoothed Importance Sampling},
+  journal = {Journal of Machine Learning Research},
+  year    = {2024},
+  volume  = {25},
+  number  = {72},
+  pages   = {1--58}
+}
+
+@article{savitsky2016,
+  author  = {Savitsky, Terrance D. and Toth, Daniell},
+  title   = {{Bayesian} Estimation Under Informative Sampling},
+  journal = {Electronic Journal of Statistics},
+  year    = {2016},
+  volume  = {10},
+  number  = {1},
+  pages   = {1677--1708},
+  doi     = {10.1214/16-EJS1153}
+}
+
+@article{williams2021,
+  author  = {Williams, Matthew R. and Savitsky, Terrance D.},
+  title   = {Uncertainty Estimation for Pseudo-{Bayesian} Inference Under
+             Complex Sampling},
+  journal = {International Statistical Review},
+  year    = {2021},
+  volume  = {89},
+  number  = {1},
+  pages   = {72--107},
+  doi     = {10.1111/insr.12376}
+}
+
+%% -- Simulation methodology and large-scale-assessment data -------------------
+
+@article{morris2019,
+  author  = {Morris, Tim P. and White, Ian R. and Crowther, Michael J.},
+  title   = {Using Simulation Studies to Evaluate Statistical Methods},
+  journal = {Statistics in Medicine},
+  year    = {2019},
+  volume  = {38},
+  number  = {11},
+  pages   = {2074--2102},
+  doi     = {10.1002/sim.8086}
+}
+
+@techreport{oecd2024pisatech,
+  author      = {{OECD}},
+  title       = {{PISA} 2022 Technical Report},
+  institution = {OECD Publishing},
+  address     = {Paris},
+  year        = {2024},
+  url         = {https://www.oecd.org/pisa/data/}
+}

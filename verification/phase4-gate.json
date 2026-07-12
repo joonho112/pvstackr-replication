@@ -1,0 +1,16 @@
+{
+  "phase": 4,
+  "status": "pass",
+  "conditions": 24,
+  "replications": 4000,
+  "estimator_rows": 16000,
+  "diagnostic_replications": 48,
+  "diagnostic_fits": 558,
+  "maximum_rhat_exact": 1.02023844442964,
+  "divergences": 0,
+  "maximum_mcmc_archived_frequency_difference": {"beta_W": 0.0006818915, "beta_B": 0.0106386784},
+  "july_june_beta_W_anchor": 0.0085525693,
+  "seed_domains": {"DGM": 20260514, "MCMC": 20260601},
+  "negative_controls": ["missing shard", "duplicate key", "corrupt shard", "quick-mode shard in full archive"],
+  "live_reduced_replay": "pass"
+}

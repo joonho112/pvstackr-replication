@@ -1,0 +1,240 @@
+{
+  "schema_version": "pisa_public_manifest_v1",
+  "source_sha256": "178795eeba9367ebcfda69af8036e8bcb2e6bab6190b2c657af160e29a76ff44",
+  "files": [
+    [
+      {
+        "logical_id": "data_precomputed/pisa/abc_difference_diagnostics",
+        "path": "data/precomputed/pisa/abc_difference_diagnostics.csv",
+        "sha256": "b73f3852237e1a964d6f417f248a613761607f62d594db5eea92e6aae63e9a83",
+        "bytes": 4512,
+        "format": "csv",
+        "rows": 12,
+        "columns": 20,
+        "object_schema": "",
+        "status": "public_curated"
+      }
+    ],
+    [
+      {
+        "logical_id": "data_precomputed/pisa/abc_estimates",
+        "path": "data/precomputed/pisa/abc_estimates.csv",
+        "sha256": "e8721aed098b4674dfb011e28175cb30d70df021ed1a316542df0c97463bd4d5",
+        "bytes": 4502,
+        "format": "csv",
+        "rows": 12,
+        "columns": 28,
+        "object_schema": "",
+        "status": "public_curated"
+      }
+    ],
+    [
+      {
+        "logical_id": "data_precomputed/pisa/brr_fay_per_pv",
+        "path": "data/precomputed/pisa/brr_fay_per_pv.csv",
+        "sha256": "5478bdc9482ee721e1e3b8743c701a8977e90554edf31952d42b9ded812a0bd8",
+        "bytes": 16930,
+        "format": "csv",
+        "rows": 60,
+        "columns": 15,
+        "object_schema": "",
+        "status": "public_curated"
+      }
+    ],
+    [
+      {
+        "logical_id": "data_precomputed/pisa/brr_fay_target",
+        "path": "data/precomputed/pisa/brr_fay_target.csv",
+        "sha256": "101e293535eebff7c127bf1eb9aed6fcdfbd407e68f59ce720c7897807689dad",
+        "bytes": 5251,
+        "format": "csv",
+        "rows": 6,
+        "columns": 31,
+        "object_schema": "",
+        "status": "public_curated"
+      }
+    ],
+    [
+      {
+        "logical_id": "data_precomputed/pisa/curation_field_map",
+        "path": "data/precomputed/pisa/curation_field_map.csv",
+        "sha256": "7af87a26100c16b94ee68c35025e54ba43694d92faea1f58f4ff991e653483de",
+        "bytes": 516,
+        "format": "csv",
+        "rows": 3,
+        "columns": 3,
+        "object_schema": "",
+        "status": "public_curated"
+      }
+    ],
+    [
+      {
+        "logical_id": "data_precomputed/pisa/pipeline_a_cached",
+        "path": "data/precomputed/pisa/pipeline_a_cached.rds",
+        "sha256": "b452603281a63670637f1cdc6a471584fbd25f5330d5d24ebc8d266797236e44",
+        "bytes": 398344,
+        "format": "rds",
+        "rows": null,
+        "columns": null,
+        "object_schema": "pisa_pipeline_a_public_cache_v1",
+        "status": "public_curated"
+      }
+    ],
+    [
+      {
+        "logical_id": "data_precomputed/pisa/pipeline_b_psis_gate",
+        "path": "data/precomputed/pisa/pipeline_b_psis_gate.rds",
+        "sha256": "00a1a8bd6ad1f10dc6537ee3c40b0268c4338bd7bd2da1b19f54dce25f2e30a5",
+        "bytes": 112032,
+        "format": "rds",
+        "rows": null,
+        "columns": null,
+        "object_schema": "pisa_pipeline_b_public_diagnostics_v1",
+        "status": "public_curated"
+      }
+    ],
+    [
+      {
+        "logical_id": "data_precomputed/pisa/pipeline_c_cached",
+        "path": "data/precomputed/pisa/pipeline_c_cached.rds",
+        "sha256": "c3944155b4ac2d968d2da4590a4d5f53762ab8f3704b390eff87cd4d041a5b4d",
+        "bytes": 97952,
+        "format": "rds",
+        "rows": null,
+        "columns": null,
+        "object_schema": "pisa_pipeline_c_public_cache_v1",
+        "status": "public_curated"
+      }
+    ],
+    [
+      {
+        "logical_id": "data_precomputed/pisa/psis_diagnostics",
+        "path": "data/precomputed/pisa/psis_diagnostics.csv",
+        "sha256": "f192dacc1db27c472bc7ad8e9dc067151cfed09ac8bbed65b3f865b30990d0db",
+        "bytes": 12784,
+        "format": "csv",
+        "rows": 20,
+        "columns": 30,
+        "object_schema": "",
+        "status": "public_curated"
+      }
+    ],
+    [
+      {
+        "logical_id": "data_precomputed/pisa/reportability_status",
+        "path": "data/precomputed/pisa/reportability_status.csv",
+        "sha256": "4dfc638ae86964142a5fde33ed59a0daaed309fac4fd599b975112b5c01e1f4e",
+        "bytes": 251,
+        "format": "csv",
+        "rows": 2,
+        "columns": 8,
+        "object_schema": "",
+        "status": "public_curated"
+      }
+    ],
+    [
+      {
+        "logical_id": "data_precomputed/pisa/reversal_country_estimates",
+        "path": "data/precomputed/pisa/reversal_country_estimates.csv",
+        "sha256": "d7ef36c5b93a6550ef578b769e83a756b7e1d35c7c79c5b0b6c8b544db177894",
+        "bytes": 6797,
+        "format": "csv",
+        "rows": 12,
+        "columns": 19,
+        "object_schema": "",
+        "status": "public_curated"
+      }
+    ],
+    [
+      {
+        "logical_id": "data_precomputed/pisa/reversal_results",
+        "path": "data/precomputed/pisa/reversal_results.csv",
+        "sha256": "a795ab9c4afa96049eeb99c254d0e310bcead8d46cb486730dfff2fad555c7a5",
+        "bytes": 1582,
+        "format": "csv",
+        "rows": 2,
+        "columns": 27,
+        "object_schema": "",
+        "status": "public_curated"
+      }
+    ],
+    [
+      {
+        "logical_id": "data_precomputed/pisa/reversal_robustness_country_estimates",
+        "path": "data/precomputed/pisa/reversal_robustness_country_estimates.csv",
+        "sha256": "e790be989605b5eebbfd84640bd2dd9b9f9f88254e6204b7481025e7a0bfb1a8",
+        "bytes": 285396,
+        "format": "csv",
+        "rows": 342,
+        "columns": 36,
+        "object_schema": "",
+        "status": "public_curated"
+      }
+    ],
+    [
+      {
+        "logical_id": "data_precomputed/pisa/reversal_robustness_grid",
+        "path": "data/precomputed/pisa/reversal_robustness_grid.csv",
+        "sha256": "73e8dc8fb7fe6063f3cc14f3d4ea106c4951eabbb53a48a06c4abf00ecc8a30a",
+        "bytes": 118099,
+        "format": "csv",
+        "rows": 100,
+        "columns": 52,
+        "object_schema": "",
+        "status": "public_curated"
+      }
+    ],
+    [
+      {
+        "logical_id": "data_precomputed/pisa/reversal_robustness_summary",
+        "path": "data/precomputed/pisa/reversal_robustness_summary.csv",
+        "sha256": "e1045d6e5e1e37dfb2ac5ec421529e37ac7225ba887824310a8e6775dfe49fd7",
+        "bytes": 1441,
+        "format": "csv",
+        "rows": 1,
+        "columns": 23,
+        "object_schema": "",
+        "status": "public_curated"
+      }
+    ],
+    [
+      {
+        "logical_id": "data_precomputed/pisa/reversal_secondary_summary",
+        "path": "data/precomputed/pisa/reversal_secondary_summary.csv",
+        "sha256": "0d9586b65f39b63f5d879f429e4e06dcebba3083ea27f920b55f6c9fa9f03bd4",
+        "bytes": 6006,
+        "format": "csv",
+        "rows": 5,
+        "columns": 34,
+        "object_schema": "",
+        "status": "public_curated"
+      }
+    ],
+    [
+      {
+        "logical_id": "data_precomputed/pisa/sample_cascade",
+        "path": "data/precomputed/pisa/sample_cascade.csv",
+        "sha256": "e8abc62b068accd0e82a481ab07372804da95fb6dccfa9530de1feb6983579f6",
+        "bytes": 232,
+        "format": "csv",
+        "rows": 2,
+        "columns": 7,
+        "object_schema": "",
+        "status": "public_curated"
+      }
+    ],
+    [
+      {
+        "logical_id": "data_precomputed/pisa/weight_diagnostics",
+        "path": "data/precomputed/pisa/weight_diagnostics.csv",
+        "sha256": "a2af505800e5f91b756398841d9650b9c7e2578e5be814d426d8efab4241007a",
+        "bytes": 293,
+        "format": "csv",
+        "rows": 2,
+        "columns": 8,
+        "object_schema": "",
+        "status": "public_curated"
+      }
+    ]
+  ]
+}

@@ -1,0 +1,135 @@
+# Manifests and verification {#sec-repro}
+
+Reproduction in this package is auditable, not merely runnable: every reported
+number has a registered producer and an independent rule that checks it, and the
+whole set is fail-closed. This chapter describes that machinery and the one place
+it deliberately does *not* smooth over --- the boundary between reproducing the
+archive and editing the manuscript.
+
+## The reproduction map {#sec-repro-map}
+
+`verification/reproduction-map.csv` is the central index. Each row names a
+manuscript or supplement target, its frozen authority, its public input, the
+script that produces it, the track that runs it, and the rule that verifies it.
+The `verify` track walks this map and its expected-value registries; @sec-tracks
+in the overview summarizes the target counts by status.
+
+## What `verify` checks {#sec-repro-verify}
+
+`Rscript run_all.R --track verify` runs a suite of independent components. The
+main ones:
+
+| Component | What it establishes |
+|---|---|
+| `verify_manifest.R` | the public file set is exactly the manifest, and every SHA-256 and size matches |
+| `verify_artifacts.R` | the rebuilt tables and figures carry the frozen printed values |
+| `verify_claims.R` | the registered numeric anchors match to their declared tolerances |
+| `check_reproduction_map.R` | every public output has a producer and a rule; no output is unmapped |
+| `static_publication_scan.R` | no credentials, private paths, control characters, or stray archives |
+| `check_guide.R` | this guide renders completely with no broken links or unsafe text |
+
+The kinds of check are matched to the kind of quantity:
+
+- **Exact checks** for identifiers, dimensions, row counts, schemas,
+  deterministic CSV content, reportability status, and artifact hashes.
+- **Tolerance checks** with named tolerances, used only where platform
+  arithmetic or stochastic replay makes byte equality inappropriate.
+- **Display checks** that store *both* the exact value and the rounding rule, so
+  a printed number like the maximum $\hat R$ of `1.020` is honest about being a
+  three-decimal display rather than an exact bound.
+
+The registered numeric anchors are counted live below:
+
+```{r}
+#| label: tbl-anchor-count
+#| echo: false
+#| tbl-cap: "Registered numeric anchors by authority, read live from the expected-value registries."
+root <- getwd()
+while (!file.exists(file.path(root, "pvstackr-replication.Rproj")) && dirname(root) != root) root <- dirname(root)
+main_path <- file.path(root, "verification", "expected", "main-numeric-claims.csv")
+osm_path  <- file.path(root, "verification", "expected", "osm-numeric-claims.csv")
+if (file.exists(main_path) && file.exists(osm_path)) {
+  m <- utils::read.csv(main_path, stringsAsFactors = FALSE)
+  o <- utils::read.csv(osm_path,  stringsAsFactors = FALSE)
+  knitr::kable(
+    data.frame(
+      Registry = c("Main manuscript", "Online supplement"),
+      Anchors  = c(nrow(m), nrow(o))
+    ),
+    row.names = FALSE
+  )
+} else {
+  cat("Expected-value registries not found; run from the package root.\n")
+}
+```
+
+## Fail-closed by design {#sec-repro-failclosed}
+
+A verification suite is only as trustworthy as its behavior on *bad* input, so
+the package ships adversarial negative controls that must fail:
+
+- a corrupt or incomplete simulation grid must fail the aggregator;
+- a non-SPD calibration target must fail unless a repair is explicitly
+  authorized (and an authorized repair forces a `fail` status, never a silent
+  estimate);
+- a Korea Pipeline B estimate must not pass through the paper-facing extractor;
+- an unlisted public file, a tampered byte, an embedded credential, or a stray
+  compressed archive must each fail the manifest or publication scan;
+- an unknown workflow label or an unsafe path must fail publication hygiene.
+
+`tests/test_verifier_negative.R` exercises these controls, so a check that
+*passes* is meaningful: the same machinery demonstrably rejects the failure it is
+meant to catch.
+
+## Byte-level determinism {#sec-repro-determinism}
+
+The exhibit builders are deterministic: rebuilding the tables and figures with
+`--track quick` and then re-running `verify_manifest.R` reproduces the shipped
+artifacts **byte for byte**, so the precomputed layer you rebuild from is
+provably the layer the paper was written against.
+
+::: {.callout-note}
+## Why a regenerated PDF may hash differently
+
+Figure PDFs can carry system-dependent font and metadata bytes, so a
+from-scratch render may not hash-match the shipped PDF even when the figure is
+identical. Scientific parity is therefore checked from *plot data*, table
+values, normalized text, and explicit numeric anchors --- never from PDF bytes.
+The visual-QA report separates benign rendering differences from content changes.
+:::
+
+## Reproduce, then disclose {#sec-repro-disclose}
+
+The most important design choice in this package is what it does when the
+submitted manuscript and the frozen evidence disagree. It **reproduces the
+archive and records the difference** --- it does not change an input until a
+sentence becomes true. Faithful reproduction means recovering the archived
+calculation, not retrofitting it.
+
+The disclosed source discrepancies, collected in
+`docs/known-source-discrepancies.md`, are:
+
+1. **Degrees of freedom.** Table 4's archived intervals use classic-Rubin
+   degrees of freedom, though the text calls them Barnard--Rubin; the two
+   coincide to the printed precision (@sec-perpv, @sec-pisa-table4).
+2. **$\hat R$ display.** The exact maximum simulation $\hat R$ is `1.02023844…`;
+   `1.020` is its three-decimal display (@sec-sim-results).
+3. **A variance-share sentence.** No archived producer supports the statement
+   that Korea's between-school variance share is roughly twice the U.S. value;
+   it is registered as `unverified` rather than reverse-engineered (@sec-faq).
+4. **Seed domains.** The simulation uses two seed roots (`20260514` for data,
+   `20260601` for MCMC); the supplement describes only the first.
+5. **Reduced-footprint conditions.** A superseded first simulation run carried
+   reduced MCMC footprints; the shipped exhibits are from the full-footprint
+   second run.
+6. **Data redistribution.** PISA microdata are obtainable but not
+   redistributable, so the package ships code, contracts, and evidence but not
+   the records (@sec-pisa-obtain).
+
+## Documentation and computation are kept apart {#sec-repro-guidesep}
+
+This guide reads static, clean inputs and never starts Stan or refits a model:
+the tables and figures on these pages are read from the shipped evidence, not
+recomputed from raw draws. Keeping the guide render separate from scientific
+recomputation is what lets it render quickly and safely in continuous
+integration while the heavy tracks remain explicit, opt-in operations.

@@ -1,0 +1,21 @@
+logical_id,category,disposition,public_location,reason,sensitivity
+sim_design,simulation design,include,data/precomputed/simulation/design.csv,canonical July 24-condition design,public synthetic
+sim_config,simulation config,adapt,code/02_simulation/protocol/run_config.yml,remove local paths and freeze protocol,public synthetic
+sim_per_rep,simulation evidence,adapt,data/precomputed/simulation/parity_per_rep.csv,canonical 16000-row inspectable evidence,public synthetic
+sim_combined,simulation evidence,adapt,data/precomputed/simulation/simulation_evidence.rds,Git-friendly deterministic bundle,public synthetic
+sim_diagnostics,simulation evidence,include,data/precomputed/simulation/diagnostics.csv,48 diagnostic replications,public synthetic
+sim_legacy_june,simulation reference,reference,data/precomputed/simulation/betaW_reproduction_check.csv,comparison anchor only,public synthetic
+sim_irt_pilots,development evidence,exclude,,outside manuscript claims,none
+pisa_canonical,PISA public-use data,exclude,data/pisa/DATA_NOTICE.md,direct OECD access required; local unit records ignored,third-party restricted redistribution
+pisa_analytic,PISA derived data,exclude,data/pisa/DATA_NOTICE.md,local deterministic projection not redistributed,third-party restricted redistribution
+pisa_final_abc,PISA evidence,include,data/precomputed/pisa/abc_estimates.csv,canonical paper-facing estimates,public derived
+pisa_psis_diagnostics,PISA evidence,include,data/precomputed/pisa/psis_diagnostics.csv,all-country diagnostics with reportability status,public derived
+pisa_cached_draws,PISA draws,adapt,data/precomputed/pisa/,remove embedded local paths and unsafe internals,public derived
+pisa_raw_oecd,raw third-party source,reference,data/pisa/DATA_NOTICE.md,direct OECD access and terms,third-party restricted redistribution
+frozen_paper_engine,method code,adapt,code/01_core/,exact paper engine with portable interfaces,public source
+pvstackr_v010,related software,reference,docs/software-lineage.md,not capable of paper random-intercept path,public source
+stan_sources,model code,include,stan/,source only; exclude compiled binaries,public source
+manuscript_tex,publication source,reference,verification/reproduction-map.csv,read-only authority; not copied wholesale,publication source
+internal_logs,development records,exclude,,local-only and may contain private paths,private
+cloud_launchers,operations,exclude,,tokens and cloud-specific configuration not needed,private
+compiled_binaries,build artifacts,exclude,,platform-specific and unnecessary,none
