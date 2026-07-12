@@ -33,6 +33,21 @@ jobs:
             any::Matrix
             any::loo
             any::posterior
+      - name: Debug manifest fixture (temporary)
+        run: |
+          Rscript -e '
+          source("tools/public_files.R")
+          root <- getwd()
+          scratch <- tempfile("dbg-"); dir.create(scratch, recursive = TRUE)
+          public <- c(pv_public_files(root), "manifest/artifacts.csv")
+          ok <- vapply(public, function(rel) {
+            t <- file.path(scratch, rel); dir.create(dirname(t), recursive = TRUE, showWarnings = FALSE)
+            file.copy(file.path(root, rel), t, overwrite = TRUE, copy.mode = TRUE, copy.date = TRUE)
+          }, logical(1))
+          cat("copied:", sum(ok), "of", length(public), " failed-copy:", paste(public[!ok], collapse=", "), "\n")
+          out <- system2(file.path(R.home("bin"),"Rscript"), c("--vanilla", shQuote(file.path(scratch,"verification","verify_manifest.R"))), stdout = TRUE, stderr = TRUE)
+          cat("--- fixture verify_manifest output (status", attr(out,"status"), ") ---\n"); cat(out, sep = "\n")
+          '
       - name: Quick reproduction
         run: Rscript run_all.R --track quick
       - name: Verification suite

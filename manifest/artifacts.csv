@@ -1,7 +1,7 @@
 "logical_id","path","artifact_type","schema_version","producer","source_ids","sha256","size_bytes","rows","columns","status","notes"
 "artifact-0001",".gitattributes","document","pvstackr-artifact-manifest-v1","manual-curation","RELEASE-METADATA","e9fa916b0e05fb269b9ba6d61444e61f8aba2a2cec5ccaa91743492b1f1a2bfc",358,NA,NA,"source",""
 "artifact-0002",".github/workflows/pages.yml","document","pvstackr-artifact-manifest-v1","manual-curation","RELEASE-METADATA","dcfbd65068446f00ed80e5e9e381606c772cc7b11e62b4e5b400e6cdd6cc060b",1136,NA,NA,"source",""
-"artifact-0003",".github/workflows/validation.yml","document","pvstackr-artifact-manifest-v1","manual-curation","RELEASE-METADATA","823d94610d902f1d62fd150a9e43013f01e18a5e1e565934b29bc7e58e37d871",1091,NA,NA,"source",""
+"artifact-0003",".github/workflows/validation.yml","document","pvstackr-artifact-manifest-v1","manual-curation","RELEASE-METADATA","d99653089c4350de6c027c0ddd1bd17d88384e4cdff303306f463046e1775ed2",2081,NA,NA,"source",""
 "artifact-0004",".gitignore","document","pvstackr-artifact-manifest-v1","manual-curation","RELEASE-METADATA","325c3186b4c04769d68b0bd4583990374c110aea887b5ac115b6ea8c548543a3",1069,NA,NA,"source",""
 "artifact-0005","book/_quarto.yml","document","pvstackr-artifact-manifest-v1","manual-curation","RELEASE-METADATA","5224a571f5f2ec24259d76ca8b4ac98f30fb9a1c4da1a632c7c650a0915de4ab",1157,NA,NA,"source",""
 "artifact-0006","book/assets/figures/figure_s3_weighting_sensitivity.png","figure","pvstackr-artifact-manifest-v1","manual-curation","RELEASE-METADATA","082ab16c8bb6c9c529c82e219af23337272120acc8bd818c5c8f1bc3de93d164",26552,NA,NA,"source",""
