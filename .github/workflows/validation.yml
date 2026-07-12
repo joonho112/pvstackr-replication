@@ -33,23 +33,21 @@ jobs:
             any::Matrix
             any::loo
             any::posterior
-      - name: Debug manifest fixture (temporary)
+      - name: Quick reproduction
+        run: Rscript run_all.R --track quick
+      - name: Debug manifest fixture post-quick (temporary)
         run: |
+          echo "--- git status after quick ---"; git status --porcelain | head -40
+          echo "--- untracked files git sees ---"; git ls-files --others --exclude-standard | head -40
           Rscript -e '
           source("tools/public_files.R")
           root <- getwd()
           scratch <- tempfile("dbg-"); dir.create(scratch, recursive = TRUE)
           public <- c(pv_public_files(root), "manifest/artifacts.csv")
-          ok <- vapply(public, function(rel) {
-            t <- file.path(scratch, rel); dir.create(dirname(t), recursive = TRUE, showWarnings = FALSE)
-            file.copy(file.path(root, rel), t, overwrite = TRUE, copy.mode = TRUE, copy.date = TRUE)
-          }, logical(1))
-          cat("copied:", sum(ok), "of", length(public), " failed-copy:", paste(public[!ok], collapse=", "), "\n")
+          for (rel in public) { t <- file.path(scratch, rel); dir.create(dirname(t), recursive = TRUE, showWarnings = FALSE); file.copy(file.path(root, rel), t, overwrite = TRUE, copy.mode = TRUE, copy.date = TRUE) }
           out <- system2(file.path(R.home("bin"),"Rscript"), c("--vanilla", shQuote(file.path(scratch,"verification","verify_manifest.R"))), stdout = TRUE, stderr = TRUE)
-          cat("--- fixture verify_manifest output (status", attr(out,"status"), ") ---\n"); cat(out, sep = "\n")
+          cat("--- fixture verify_manifest (status", attr(out,"status"), ") ---\n"); cat(out, sep = "\n")
           '
-      - name: Quick reproduction
-        run: Rscript run_all.R --track quick
       - name: Verification suite
         run: Rscript run_all.R --track verify
       - name: Upload comparison reports
