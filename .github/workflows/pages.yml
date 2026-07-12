@@ -23,7 +23,12 @@ jobs:
         with:
           r-version: '4.6.0'
           use-public-rspm: true
-      - uses: r-lib/actions/setup-renv@v2
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::knitr
+            any::rmarkdown
+            any::yaml
       - uses: quarto-dev/quarto-actions/setup@v2
       - name: Render guide
         run: quarto render book
