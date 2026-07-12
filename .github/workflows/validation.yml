@@ -25,6 +25,7 @@ jobs:
             any::jsonlite
             any::yaml
             any::testthat
+            any::lme4
             any::ggplot2
             any::dplyr
             any::tidyr
