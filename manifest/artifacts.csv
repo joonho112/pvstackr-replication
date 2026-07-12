@@ -48,7 +48,7 @@
 "artifact-0047","code/02_simulation/seed_protocol.R","code","pvstackr-artifact-manifest-v1","manual-curation","SIM-JULY-PARITY","4a4a565c1bd2dedf4c493bb3f3ca09e5ae73aee49077fae89b1445ac746835ad",2410,NA,NA,"source",""
 "artifact-0048","code/02_simulation/seeds.R","code","pvstackr-artifact-manifest-v1","manual-curation","SIM-JULY-PARITY","6db223512233767d8a744ba07424fe733b53319826365f8ff54d624139ca9ae4",5744,NA,NA,"source",""
 "artifact-0049","code/02_simulation/simulation_utils.R","code","pvstackr-artifact-manifest-v1","manual-curation","SIM-JULY-PARITY","41b2f6eba0859af942d50b805c357be42de2964a8f745fcf65009ec3180a522c",12239,NA,NA,"source",""
-"artifact-0050","code/02_simulation/tests/test_simulation.R","code","pvstackr-artifact-manifest-v1","manual-curation","SIM-JULY-PARITY","c6562fb877f9c4def8c390f5cead8cb327095ffbefef9cde2ae72977a3a294ad",8936,NA,NA,"source",""
+"artifact-0050","code/02_simulation/tests/test_simulation.R","code","pvstackr-artifact-manifest-v1","manual-curation","SIM-JULY-PARITY","c0db0cda78c1393a68e823ef39452aff88476ee0abe484edd4e1f831e928eaa8",9297,NA,NA,"source",""
 "artifact-0051","code/02_simulation/verify_simulation.R","code","pvstackr-artifact-manifest-v1","manual-curation","SIM-JULY-PARITY","8dc1ae2ae21202c19a5cae85a42c96bfc981148e5888dd71d769e0630a932df3",8245,NA,NA,"source",""
 "artifact-0052","code/03_pisa/00_config.R","code","pvstackr-artifact-manifest-v1","manual-curation","PISA-PRECOMPUTED-V3","6f3ce20c87b09e779686d52d162d90864c949755c438c3dc869d6d6c9105e4e1",5758,NA,NA,"source",""
 "artifact-0053","code/03_pisa/00_import_oecd_puf.R","code","pvstackr-artifact-manifest-v1","manual-curation","PISA-PRECOMPUTED-V3","bd81788b60e1c2d28d2182d1bb74a176b1a08cb4ccf52f6323640c5a1da348d7",5331,NA,NA,"source",""

@@ -95,7 +95,12 @@ for (condition in representatives) {
 source(file.path(root, "code", "02_simulation", "runner", "run_one.R"),
        local = FALSE)
 
-# The live frequentist leg must reproduce the archive's ML implementation.
+# The live frequentist leg must reproduce the archive's ML implementation. The
+# comparison uses the package's stochastic tolerance (1e-6) rather than a
+# machine-precision bound: this leg is a numerical lme4 optimization, so a
+# different BLAS/LAPACK build (for example, a Linux CI runner versus the macOS
+# machine that produced the archive) converges to the same estimate only up to
+# floating-point reproducibility, not bit for bit.
 archived_frequency <- .sim_fit_archived_freq(substrate_a)
 frozen_frequency <- bundle$per_rep[
   bundle$per_rep$design_condition_id == "T2-c1" &
@@ -103,7 +108,7 @@ frozen_frequency <- bundle$per_rep[
   c("bW", "seW", "loW", "hiW", "bB", "seB", "loB", "hiB")
 ]
 stopifnot(nrow(frozen_frequency) == 1L,
-          max(abs(archived_frequency - unlist(frozen_frequency))) < 1e-10)
+          max(abs(archived_frequency - unlist(frozen_frequency))) < 1e-6)
 
 shard_dir <- tempfile("shard-validation-")
 dir.create(file.path(shard_dir, "T2-c1"), recursive = TRUE)
