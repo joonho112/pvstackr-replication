@@ -71,9 +71,17 @@ stopifnot(is.finite(paper$estimate[paper$country == "USA"]),
           is.na(paper$estimate[paper$country == "KOR"]))
 
 dir.create(file.path(root, "verification"), showWarnings = FALSE)
-json <- sprintf('{"phase":3,"status":"pass","theorem_delta":%.17g,"ccc_mean_residual":%.17g,"ccc_cov_residual":%.17g,"korea_withheld":true}',
-                t22$delta,
-                max(abs(colMeans(cal[, c("b0", "b1")]) - c(0.2, 0.7))),
-                max(abs(stats::cov(cal[, c("b0", "b1")]) - target)))
+# Report the identity residuals at a platform-stable resolution. They are all
+# machine-epsilon quantities far below 1e-10 -- the point identity and the CCC
+# moment calibration hold to machine precision -- so they render as 0
+# identically on every platform, keeping this gate file byte-reproducible
+# across operating systems and BLAS/LAPACK builds.
+stabilize <- function(x) {
+  if (isTRUE(is.finite(x) && abs(x) < 1e-10)) "0" else format(signif(x, 6), scientific = TRUE)
+}
+json <- sprintf('{"phase":3,"status":"pass","theorem_delta":%s,"ccc_mean_residual":%s,"ccc_cov_residual":%s,"korea_withheld":true}',
+                stabilize(t22$delta),
+                stabilize(max(abs(colMeans(cal[, c("b0", "b1")]) - c(0.2, 0.7)))),
+                stabilize(max(abs(stats::cov(cal[, c("b0", "b1")]) - target))))
 writeLines(json, file.path(root, "verification", "core-gate.json"))
 cat("Core engine tests passed.\n")
